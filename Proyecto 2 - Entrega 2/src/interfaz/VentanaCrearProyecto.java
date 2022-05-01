@@ -1,14 +1,11 @@
 package interfaz;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
@@ -28,15 +25,7 @@ public class VentanaCrearProyecto extends JFrame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Cerrar ventana
 		setLocationRelativeTo(null);
 		
-		setLayout(new GridLayout (4,1));
-		
-		JPanel panelTitulo = new JPanel(); //Panel para el titulo
-		
-		lblTitulo = new JLabel("Crear proyecto", SwingConstants.CENTER); //Crear titulo centrado
-		
-		panelTitulo.add(lblTitulo); //Añadir titulo al panel titulo
-		
-		add(panelTitulo);
+		setLayout(new GridLayout (3,1));
 		
 		JPanel panelProyecto = new JPanel(); //Panel para datos del proyecto
 		panelProyecto.setBorder(new TitledBorder("Datos del proyecto"));
@@ -93,9 +82,7 @@ public class VentanaCrearProyecto extends JFrame
 		panelBotones.setLayout(new GridLayout(1,2));
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setPreferredSize(new Dimension(40,40));
 		JButton btnConfirmar = new JButton("Crear");
-		btnConfirmar.setPreferredSize(new Dimension(40,40));
 		panelBotones.add(btnCancelar);
 		panelBotones.add(btnConfirmar);
 		

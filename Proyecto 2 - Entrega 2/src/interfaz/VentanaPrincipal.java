@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -53,8 +54,34 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			new VentanaCrearProyecto().setVisible(true); //Crear la ventana de los datos del proyecto y mostarla
 		}
 		if(comando.equals("CARGAR")) {
+			Boolean ingresando = true; //Mientras se intente ingresar a un proyecto
+			Boolean ingresado = false;
+			Boolean ventanaCreada = false;
+			while (ingresando) {
+				String tempNombreProyecto = JOptionPane.showInputDialog(null,"Digite el nombre del proyecto a cargar:"); //input
+				
+				try { //Si no ha cancelado el proceso
+					
+					if (tempNombreProyecto.equals("")) { //Si no escribio un nombre
+						JOptionPane.showMessageDialog(null,"Debe digitar un nombre.");
+					}
+					else {
+						//Consultar y ver si existe
+						ingresando = false;
+						ingresado = true;
+					}
+				}
+				catch (Exception e1) { //Si cancela el procedimiento
+					ingresando = false;
+					JOptionPane.showMessageDialog(null,"Ha cancelado la carga del proyecto");
+				}
+			}
+					setVisible(false);
+					new VentanaAdministrarProyecto().setVisible(true);
+					ventanaCreada = true;
+				
 			
-		}
+		}		
 	}
 	
 	public static void main (String[] args)
