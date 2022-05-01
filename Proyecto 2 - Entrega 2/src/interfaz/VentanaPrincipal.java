@@ -51,7 +51,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		
 		if(comando.equals("CREAR")) {
 			new VentanaCrearProyecto().setVisible(true); //Crear la ventana de los datos del proyecto y mostarla
-			
 		}
 		if(comando.equals("CARGAR")) {
 			
