@@ -1,7 +1,8 @@
 package interfaz;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
-public class VentanaAdministrarProyecto extends JFrame
+public class VentanaAdministrarProyecto extends JFrame implements ActionListener
 {
 	private JLabel lblTitulo, lblNombre, lblDescripcion, lblFechaInicial, lblFechaFinal, lblID, lblIDProyecto, lblMovimiento;
 	private JTextField tfNombre, tfDescripcion, tfFechaInicial, tfFechaFinal;
@@ -71,6 +72,8 @@ public class VentanaAdministrarProyecto extends JFrame
 		add(panelPropiedades);
 		
 		btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(this);
+		btnGuardar.setActionCommand("GUARDAR");
 		add(btnGuardar);
 		
 		JPanel panelBotones = new JPanel();
@@ -78,18 +81,50 @@ public class VentanaAdministrarProyecto extends JFrame
 		panelBotones.setBorder(new TitledBorder("Opciones"));
 				
 		btnParticipantes = new JButton("Mostrar participantes");
+		btnParticipantes.addActionListener(this);
+		btnParticipantes.setActionCommand("PARTICIPANTES");
 		panelBotones.add(btnParticipantes);
 		
 		btnTiposActividades = new JButton("Mostrar tipos de actividades");
+		btnTiposActividades.addActionListener(this);
+		btnTiposActividades.setActionCommand("TIPOS");
 		panelBotones.add(btnTiposActividades);
 		
 		btnActividades = new JButton("Mostrar actividades");
+		btnActividades.addActionListener(this);
+		btnActividades.setActionCommand("ACTIVIDADES");
 		panelBotones.add(btnActividades);
 		
 		btnReporte = new JButton("Generar reporte");
+		btnReporte.addActionListener(this);
+		btnReporte.setActionCommand("REPORTE");
 		panelBotones.add(btnReporte);
 		
 		add(panelBotones);
+	}
+	
+		public void actionPerformed(ActionEvent e) {
+			String comando = e.getActionCommand();
+			
+			if(comando.equals("GUARDAR")) {
+				
+			}
+			
+			if(comando.equals("PARTICIPANTE")) {
+				new VentanaAdministrarParticipantes().setVisible(true);
+			}
+			
+			if(comando.equals("TIPOS")) {
+				//new VentanaRevisarTiposActividades().setVisible(true);
+			}
+			
+			if(comando.equals("ACTIVIDADES")) {
+				//new VentanaAdministrarActividades().setVisible(true);
+			}
+			
+			if(comando.equals("REPORTE")) {
+				
+			}
 	}
 
 }

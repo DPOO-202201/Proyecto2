@@ -55,7 +55,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		}
 		if(comando.equals("CARGAR")) {
 			Boolean ingresando = true; //Mientras se intente ingresar a un proyecto
-			Boolean ingresado = false;
+			//Boolean ingresado = false;
 			Boolean ventanaCreada = false;
 			while (ingresando) {
 				String tempNombreProyecto = JOptionPane.showInputDialog(null,"Digite el nombre del proyecto a cargar:"); //input
@@ -68,19 +68,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 					else {
 						//Consultar y ver si existe
 						ingresando = false;
-						ingresado = true;
+						//ingresado = true;
+						//setVisible(false);
+						new VentanaAdministrarProyecto().setVisible(true);
+						//ventanaCreada = true;
 					}
 				}
 				catch (Exception e1) { //Si cancela el procedimiento
 					ingresando = false;
 					JOptionPane.showMessageDialog(null,"Ha cancelado la carga del proyecto");
 				}
-			}
-					setVisible(false);
-					new VentanaAdministrarProyecto().setVisible(true);
-					ventanaCreada = true;
-				
-			
+			}			
 		}		
 	}
 	
