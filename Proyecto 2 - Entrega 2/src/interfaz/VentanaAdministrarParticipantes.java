@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+@SuppressWarnings("serial")
 public class VentanaAdministrarParticipantes extends JFrame implements ActionListener{
 	
 	private JLabel lblTitulo, lblParticipante, lblNombre, lblCorreo, lblPropietario, lblDuenio;
@@ -50,8 +51,8 @@ public class VentanaAdministrarParticipantes extends JFrame implements ActionLis
 		panelParticipante.add(lblCorreo);
 		panelParticipante.add(tfCorreo);
 		
-		lblParticipante = new JLabel("Participante", SwingConstants.CENTER);
-		lblDuenio = new JLabel("Participante", SwingConstants.CENTER);
+		lblPropietario = new JLabel("Propietario?", SwingConstants.CENTER);
+		lblDuenio = new JLabel("No", SwingConstants.CENTER);
 		//TODO Condicional para false o true si es duenio o no
 		panelParticipante.add(lblPropietario);
 		panelParticipante.add(lblDuenio);

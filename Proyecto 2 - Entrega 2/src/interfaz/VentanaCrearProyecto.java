@@ -1,6 +1,9 @@
 package interfaz;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,14 +12,12 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
-public class VentanaCrearProyecto extends JFrame
+public class VentanaCrearProyecto extends JFrame implements ActionListener
 {	
 	//Campos de texto
 	private JTextField tfNombreProyecto, tfDescripcion, tfNombreDuenio, tfCorreoDuenio, tfDiaInicial, tfMesInicial, tfAnioInicial, tfDiaFinal, tfMesFinal, tfAnioFinal;
 	// Boton confirmar
 	private JButton btnConfirmar, btnCancelar;
-	// Label titulo
-	private JLabel lblTitulo;
 	
 	public VentanaCrearProyecto() {
 		
@@ -28,18 +29,18 @@ public class VentanaCrearProyecto extends JFrame
 		setLayout(new GridLayout (3,1));
 		
 		JPanel panelProyecto = new JPanel(); //Panel para datos del proyecto
-		panelProyecto.setBorder(new TitledBorder("Datos del proyecto"));
+		panelProyecto.setBorder(new TitledBorder("Datos del proyecto")); //titulo del panel
 		panelProyecto.setLayout(new GridLayout(4,2));
 		
-		tfNombreProyecto = new JTextField();
+		tfNombreProyecto = new JTextField(); //cosas para nombre
 		panelProyecto.add(new JLabel("Nombre"));
 		panelProyecto.add(tfNombreProyecto);
 		
-		tfDescripcion = new JTextField();
+		tfDescripcion = new JTextField(); //cosas para descripcion
 		panelProyecto.add(new JLabel("Descripcion"));
 		panelProyecto.add(tfDescripcion);
 		
-		JPanel panelFechaInicial = new JPanel();
+		JPanel panelFechaInicial = new JPanel(); //cosas para fecha inicial, con varios jtextfields para dia, mes y anio
 		panelFechaInicial.setLayout(new GridLayout(1,3));
 		tfDiaInicial = new JTextField();
 		tfMesInicial = new JTextField();
@@ -51,7 +52,7 @@ public class VentanaCrearProyecto extends JFrame
 		panelFechaInicial.add(tfAnioInicial);
 		panelProyecto.add(panelFechaInicial);
 		
-		JPanel panelFechaFinal = new JPanel();
+		JPanel panelFechaFinal = new JPanel(); //como lo de arriba pero para fecha final
 		panelFechaFinal.setLayout(new GridLayout(1,3));
 		tfDiaFinal = new JTextField();
 		tfMesFinal= new JTextField();
@@ -63,26 +64,27 @@ public class VentanaCrearProyecto extends JFrame
 		panelFechaFinal.add(tfAnioFinal);
 		panelProyecto.add(panelFechaFinal);
 		
-		add(panelProyecto);
+		add(panelProyecto); //agregar todo este panel al frame
 		
-		JPanel panelDatosCreador = new JPanel();
+		JPanel panelDatosCreador = new JPanel(); //panel para datos del creador
 		panelDatosCreador.setBorder(new TitledBorder("Datos del creador"));
 		panelDatosCreador.setLayout(new GridLayout(2,2));
 		
-		panelDatosCreador.add(new JLabel("Nombre del creador"));
+		panelDatosCreador.add(new JLabel("Nombre del creador")); //cosas del nombre del creador
 		tfNombreDuenio = new JTextField();
 		panelDatosCreador.add(tfNombreDuenio);
-		panelDatosCreador.add(new JLabel("Correo del creador"));
+		
+		panelDatosCreador.add(new JLabel("Correo del creador")); //cosas del correo del creador
 		tfCorreoDuenio = new JTextField();
 		panelDatosCreador.add(tfCorreoDuenio);
 		
 		add(panelDatosCreador);
 		
-		JPanel panelBotones = new JPanel();
+		JPanel panelBotones = new JPanel(); // panel solo para botones
 		panelBotones.setLayout(new GridLayout(1,2));
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		JButton btnConfirmar = new JButton("Crear");
+		btnCancelar = new JButton("Cancelar");
+		btnConfirmar = new JButton("Crear");
 		panelBotones.add(btnCancelar);
 		panelBotones.add(btnConfirmar);
 		
@@ -90,4 +92,13 @@ public class VentanaCrearProyecto extends JFrame
 		
 		
 	}
+	
+	//TODO completar para dar acciones a los botones
+	public void actionPerformed(ActionEvent e) {
+		String comando = e.getActionCommand();
+		
+		if(comando.equals("TOP10")) {
+		}
+	}
+		
 }

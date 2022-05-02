@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+@SuppressWarnings("serial")
 public class VentanaAdministrarProyecto extends JFrame implements ActionListener
 {
 	private JLabel lblTitulo, lblNombre, lblDescripcion, lblFechaInicial, lblFechaFinal, lblID, lblIDProyecto, lblMovimiento;
@@ -110,7 +111,7 @@ public class VentanaAdministrarProyecto extends JFrame implements ActionListener
 				
 			}
 			
-			if(comando.equals("PARTICIPANTE")) {
+			if(comando.equals("PARTICIPANTES")) {
 				new VentanaAdministrarParticipantes().setVisible(true);
 			}
 			
@@ -119,7 +120,7 @@ public class VentanaAdministrarProyecto extends JFrame implements ActionListener
 			}
 			
 			if(comando.equals("ACTIVIDADES")) {
-				//new VentanaAdministrarActividades().setVisible(true);
+				new VentanaAdministrarActividades().setVisible(true);
 			}
 			
 			if(comando.equals("REPORTE")) {
