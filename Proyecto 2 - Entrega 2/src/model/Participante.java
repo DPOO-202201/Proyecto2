@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import consola.Aplicacion;
+import procesamiento.Plataforma;
 
 import java.io.InputStreamReader;
 
@@ -25,6 +26,16 @@ public class Participante
 	public String getNombre()
 		{
 			return this.nombre;
+		}
+
+	public String getCorreo()
+		{
+			return this.correo;
+		}
+
+	public boolean getIsDuenio()
+		{
+			return this.isDuenio;
 		}
 
 	public ArrayList<Actividad> getActividades()
@@ -66,9 +77,9 @@ public class Participante
 
 	public static void nuevaActividad()
 		{
-			boolean isTiempoReal = Boolean.parseBoolean(Aplicacion.input("Inserte true si el tiempo de la se v a tomar en tiempo real o false si es una actividad ya realizada"));
+			boolean isTiempoReal = Boolean.parseBoolean(Plataforma.input("Inserte true si el tiempo de la se v a tomar en tiempo real o false si es una actividad ya realizada"));
 
-			String atr = Aplicacion.input("Inserte el nombre del autor de la actividad");
+			String atr = Plataforma.input("Inserte el nombre del autor de la actividad");
 			Participante autor = new Participante("a", "a", false);
 	
 			for(Participante participante : Proyecto.getParticipantes())
@@ -83,11 +94,11 @@ public class Participante
 						}
 				}
 
-			String titulo = Aplicacion.input("Inserte un titulo para la actividad");
-			String descripcion = Aplicacion.input("Inserte una descripcion para la actividad");
-			String fecha = Aplicacion.input("Inserte la fecha en la que incia la actividad en formato DD/MM/YYYY");
-			String horaInicial = Aplicacion.input("Inserte la hora en la que incia la actividad en formato HH/MM");
-			String tipo = Aplicacion.input("Inserte el tipo de esta actividad");
+			String titulo = Plataforma.input("Inserte un titulo para la actividad");
+			String descripcion = Plataforma.input("Inserte una descripcion para la actividad");
+			String fecha = Plataforma.input("Inserte la fecha en la que incia la actividad en formato DD/MM/YYYY");
+			String horaInicial = Plataforma.input("Inserte la hora en la que incia la actividad en formato HH/MM");
+			String tipo = Plataforma.input("Inserte el tipo de esta actividad");
 
 			String horaFinal = "00/00";
 			long tiempoRealizacion = 0;
@@ -101,12 +112,11 @@ public class Participante
 			else
 				{
 
-					horaFinal = Aplicacion.input("Inserte la hora en la que finalizo la actividad en formato HH/MM");
-					tiempoRealizacion = Actividad.calcularTiempo(horaInicial, horaFinal);
+					horaFinal = Plataforma.input("Inserte la hora en la que finalizo la actividad en formato HH/MM");
 
 				}
 
-			Actividad actividad = new Actividad(titulo, descripcion, tipo, fecha, horaInicial, horaFinal, tiempoRealizacion, isTiempoReal, autor, "0");
+			//Actividad actividad = new Actividad(titulo, descripcion, tipo, fecha, horaInicial, horaFinal, tiempoRealizacion, isTiempoReal, autor, "0");
 			
 		}
 
