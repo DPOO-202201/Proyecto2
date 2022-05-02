@@ -116,7 +116,7 @@ public class VentanaAdministrarProyecto extends JFrame implements ActionListener
 			}
 			
 			if(comando.equals("TIPOS")) {
-				//new VentanaRevisarTiposActividades().setVisible(true);
+				new VentanaRevisarTiposActividades().setVisible(true);
 			}
 			
 			if(comando.equals("ACTIVIDADES")) {
