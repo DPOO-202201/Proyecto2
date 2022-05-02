@@ -45,7 +45,6 @@ public class VentanaCrearProyecto extends JFrame implements ActionListener
 		tfDiaInicial = new JTextField();
 		tfMesInicial = new JTextField();
 		tfAnioInicial = new JTextField();
-		
 		panelProyecto.add(new JLabel("Fecha inicial"));
 		panelFechaInicial.add(tfDiaInicial);
 		panelFechaInicial.add(tfMesInicial);
@@ -57,7 +56,6 @@ public class VentanaCrearProyecto extends JFrame implements ActionListener
 		tfDiaFinal = new JTextField();
 		tfMesFinal= new JTextField();
 		tfAnioFinal = new JTextField();
-		
 		panelProyecto.add(new JLabel("Fecha final"));
 		panelFechaFinal.add(tfDiaFinal);
 		panelFechaFinal.add(tfMesFinal);
@@ -96,9 +94,6 @@ public class VentanaCrearProyecto extends JFrame implements ActionListener
 	//TODO completar para dar acciones a los botones
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
-		
-		if(comando.equals("TOP10")) {
-		}
 	}
 		
 }

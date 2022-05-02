@@ -1,4 +1,4 @@
-package testInterfaz;
+package interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class VentanaCrearTipoActividad extends JFrame{
 
 	private JLabel titulo;

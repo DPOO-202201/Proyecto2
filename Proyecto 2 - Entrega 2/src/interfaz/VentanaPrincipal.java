@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame implements ActionListener {
 	
 	private JLabel lblTitulo;
@@ -18,6 +19,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	public VentanaPrincipal() {
 		setSize(200,120);
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
+		setResizable(false);
 		setLocationRelativeTo( null );
 		setTitle("Manejador de proyectos");
 		setLayout( new BorderLayout( ) );
@@ -41,10 +43,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		panelBotones.add(btnCrearProyecto);
 		panelBotones.add(btnCargarProyecto);
 		
-		add(panelBotones);
-		
-		
-		
+		add(panelBotones); //aniadio botones a la interfaz
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -56,7 +55,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		if(comando.equals("CARGAR")) {
 			Boolean ingresando = true; //Mientras se intente ingresar a un proyecto
 			//Boolean ingresado = false;
-			Boolean ventanaCreada = false;
+			//Boolean ventanaCreada = false;
 			while (ingresando) {
 				String tempNombreProyecto = JOptionPane.showInputDialog(null,"Digite el nombre del proyecto a cargar:"); //input
 				
