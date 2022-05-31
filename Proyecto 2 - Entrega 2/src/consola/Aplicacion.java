@@ -1,291 +1,261 @@
-package consola;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+// Importaciones
+
+	package consola;
+	import java.io.BufferedReader;
+	import java.io.IOException;
+	import java.io.InputStreamReader;
 import model.Proyecto;
 import procesamiento.Plataforma;
 
-public class Aplicacion
-{
+// Clase principal
 
-	public int iDProyecto = 0;
-	private ArrayList<Proyecto> proyectos = new ArrayList<Proyecto>();
-
-	public void cargarProyectos(String rutaArchivo)
-		{
-			BufferedReader lector;
-			String linea;
-			String partes[];
-	
-			try
-				{
-					lector = new BufferedReader(new FileReader(rutaArchivo));
-					
-					lector.readLine();
-	
-					while ((linea = lector.readLine()) != (null))
-						{
-							partes = linea.split(";");
-
-							Proyecto proyecto = new Proyecto(partes[0], partes[1], partes[2], partes[3], Integer.parseInt(partes[4]));
-							proyectos.add(proyecto);
-						}
-						
-						lector.close();
-						linea = null;
-						partes = null;
-	
-				} catch (Exception e)
-					{
-						JOptionPane.showMessageDialog(null, e);
-					}
-		}
-
-	/**
-	 * Ejecuta la aplicación: le muestra el menú al usuario y la pide que ingrese
-	 * una opción, y ejecuta la opción seleccionada por el usuario. Este proceso se
-	 * repite hasta que el usuario seleccione la opción de abandonar la aplicación.
-	 * @return 
-	 */
-	public void ejecutarAplicacion()
+	public class Aplicacion
 	{
-		/**
-		 * Define las rutas donde estan almacenados los documentos.
-		 */
-
-		boolean continuar = true;
-		boolean seleccion = false;
-		/*
-		 * Mientras que el usuario no haya salido de la aplicacion
-		 */
-		while (continuar)
-		{
-			try
-			{
-				/*
-				 * Si el usuario ya selecciono un proyecto, le ofrecera opciones para trabajar con este
-				 * 
-				 * El usuario puede volver al menu de seleccion de proyectos
-				 */
-				if (seleccion)
-				{
-					mostrarMenuProyecto();
-					int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
-					if (opcion_seleccionada == 1)
-						ejecutarCrearProyecto();
-					else if (opcion_seleccionada == 2)
-						ejecutarCargarProyecto();
-					else if (opcion_seleccionada == 3)
-						{
-							ejecutarCargarParticipantes(iDProyecto);
-							ejecutarCargarActividades(iDProyecto);
-							System.out.println(Proyecto.getParticipantes().get(0).getActividades().get(0).getAutor().getNombre());
-
-							seleccion = true;
-						}
-					else if (opcion_seleccionada == 0)
-					{
-						System.out.println("\n"+"Saliendo del proyecto..."+"\n");
-						seleccion = false;	
-					}
-					
-				}
-				/*
-				 * Si no ha seleccionado un proyecto, le pedira que cargue uno o que cree uno
-				 * 
-				 * El usuario puede salir de la aplicacion desde aca
-				 */
-				else
-				{
-					mostrarMenuApp();
-					int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
-					if (opcion_seleccionada == 1) 
-					{
-						ejecutarCrearProyecto();
-					}
-					else if (opcion_seleccionada == 2)
-					{
-						ejecutarCargarProyecto();
-						seleccion = true;
-					}
-					else if (opcion_seleccionada == 3)
-					{
-						ejecutarInciarActividad();
-						seleccion = true;
-					}
-					else if (opcion_seleccionada == 0)
-					{
-						System.out.println("\n"+"Saliendo de la aplicacion..."+"\n");
-						continuar = false;
-					}
-				}
-				
-				
-			}
-			catch (NumberFormatException e)
-			{
-				System.out.println("Debe seleccionar uno de los números de las opciones.");
-			}
-		}
-	}
-
-	/**
-	 * Muestra al usuario el menú con las opciones para que escoja la siguiente
-	 * acción que quiere ejecutar.
-	 */
-	public void mostrarMenuProyecto()
-	{
-		System.out.println("\nOpciones de la aplicacion:\n");
-		System.out.println("1. Registrar nuevo participante");
-		System.out.println("3. Iniciar una nueva actividad");
-		System.out.println("0. Guardar y salir del proyecto");
-	}
-	
-	public void mostrarMenuApp() 
-	{
-		System.out.println("\n"+" --- Seleccion de proyecto --- "+"\n");
-		System.out.println("1. Crear un nuevo proyecto");
-		System.out.println("2. Cargar un proyecto");
-
-		System.out.println("0. Salir");
-	}
-
-	private void ejecutarInciarActividad()
-		{
-			Proyecto.iniciarActividad();
-		}
-
-	private void ejecutarCargarProyectos()
-		{
-			String ruta = "./././data/proyectos.csv";
-			cargarProyectos(ruta);
-		}
-
-	private void ejecutarCargarActividades(int iDProyecto){
-
-		String rutaArchivo = "./././data/proyecto "+iDProyecto+"/actividades.csv";
-
-		Proyecto.cargarActividades(rutaArchivo);
-
-	}
-
-	private void ejecutarCargarParticipantes(int iDProyecto)
-		{
-			String rutaArchivo = "./././data/proyecto "+iDProyecto+"/participantes.csv";
-	
-			Proyecto.cargarParticipantes(rutaArchivo);
-		}
-
-	/**
-	 * Crea un nuevo usuario
-	 */
-	private void ejecutarCrearParticipante(boolean isDuenio)
-	{
-		System.out.println("\n"+"--- Registrar Participante ---"+"\n");
-		System.out.println("\n"+"Debe digitar el nombre y el correo del participante que quiere agregar."+"\n");
-		String tempNombre = input("\nNombre del participante");
-		String tempCorreo = input("\nCorreo del participante");
-		Plataforma.crearParticipante(tempNombre,tempCorreo,isDuenio);
-	}
-	
-	
-	/**
-	 * Crea un nuevo proyecto
-	 */
-	private String ejecutarCrearProyecto()
-	{
-		System.out.println("\n"+"--- Crear Proyecto ---"+"\n");
-		System.out.println("\n"+"Debe digitar el nombre, la descripcion y la fecha inicial y el creador del proyecto."+"\n");
-		String tempNombreProyecto = input("\n"+"Nombre del proyecto");
-		String tempDescripcion= input("\n"+"Descripcion");
-		String tempFechaInicial = input("\n"+"Fecha inicial en formato DD-MM-AAAA");
-		String tempFechaFinal = input("\n"+"Fecha final en formato DD-MM-AAAA (Si se desconoce, dejar en blanco)");
-		int tempID = 1 + Plataforma.cargarID();
-		System.out.println(tempID);
-		Plataforma.crearProyecto(tempNombreProyecto, tempDescripcion, tempFechaInicial, tempFechaFinal, tempID);
-		System.out.println("\n"+"A continuacion debe digitar los datos del creador del proyecto");
-		ejecutarCrearParticipante(true);
-		return tempNombreProyecto;
-	}
-	
-	/*
-	 * Carga un proyecto a partir del nombre del proyecto
-	 * Por ahora se indica el nombre y se dirige a la carpeta para cargar los .csv del proyecto, de los participantes y de las actividades.
-	 */
-	private void ejecutarCargarProyecto()
-		{
-
-			System.out.println("\n"+"--- Cargar Proyecto ---"+"\n");
-			String nombreProyecto = input("\n"+"Inserte el nombre del proyecto");
-
-			for(Proyecto proyecto : proyectos)
-				{
-					System.out.println("-----------");
-
-					if (proyecto.getNombre().equals(nombreProyecto))
-						{
-							
-							iDProyecto = proyecto.getId();
-
-						}
-
-				}
-			
-			if (iDProyecto != 0)
-				{
-					ejecutarCargarParticipantes(iDProyecto);
-					ejecutarCargarActividades(iDProyecto);
-
-				}
-			else
-				{
-					System.out.println("\nEl proyecto no se ha encontrado.");
-				}
-
-		}
-
-	/**
-	 * Agrega un elemento a un pedido
-	 */
 		
-	/**
-	 * Este método sirve para imprimir un mensaje en la consola pidiéndole
-	 * información al usuario y luego leer lo que escriba el usuario.
-	 * 
-	 * @param mensaje El mensaje que se le mostrará al usuario
-	 * @return La cadena de caracteres que el usuario escriba como respuesta.
-	 */
-	public static String input(String mensaje)
-	{
-		try
-		{
-			System.out.print(mensaje + ": ");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			return reader.readLine();
-		}
-		catch (IOException e)
-		{
-			System.out.println("Error leyendo de la consola");
-			e.printStackTrace();
-		}
-		return null;
-	}
+		// Ejecuta la aplicación
 
-	/**
-	 * Este es el método principal de la aplicación, con el que inicia la ejecución
-	 * de la aplicación
-	 * 
-	 * @param args Parámetros introducidos en la línea de comandos al invocar la
-	 *             aplicación
-	 */
-	public static void main(String[] args)
-	{
-		Aplicacion consola = new Aplicacion();
-		consola.ejecutarCargarProyectos();
-		consola.ejecutarAplicacion();
-	}
+			public void ejecutarAplicacion() throws IOException
+			{
 
-}
+				// Se definen variables para manejar la ejecución de la
+				// aplicación
+
+					boolean continuar = true;
+					boolean seleccion = false;
+
+				// Se crea un while para seguir ejecutando la aplicación
+				// mientras que el usuario no decida salir
+
+					while (continuar)
+					{
+
+						// Se declara una variable para guardar las opciones
+						// seleccionadas por el usuario de la aplicacion
+
+							int opcion_seleccionada;
+
+						// Si el ususario ya cargó un proyecto, se le mostrarán
+						// las opciones que puede realizar con el proyecto
+						// que se encuentra cargado
+
+							if (seleccion)
+							{
+
+								// Se muestra el menú de opciones para el proyecto
+									
+									mostrarMenuProyecto();
+								
+								// Se le pide al ususario que seleccione una opción
+								
+									opcion_seleccionada = Integer.parseInt(Plataforma.input("\nPor favor seleccione una opcion"));
+
+								// Se ejecuta la funcionalidad que el ususario haya seleccionado
+
+									if (opcion_seleccionada == 1)
+									{
+
+										// Se le pide la información necesaria al usuario para crear al nuevo
+										// particpante
+
+										String nombre = Plataforma.input("Digite el nombre del participante que desea agregar");
+										String correo = Plataforma.input("Digite el correo del participante que desea agregar");
+
+										// Se añade el nuevo participante al proyecto
+
+											Proyecto.anadirParticiante(nombre, correo, false);
+										
+									
+									}
+
+									if (opcion_seleccionada == 2)
+									{
+
+										// Se le pide la información necesaria al usuario para crear al nuevo
+										// particpante
+
+											String titulo = Plataforma.input("Digite un titulo la actividad");
+											String descripcion = Plataforma.input("Digite un descripcion para la actividad");
+											String tipo = Plataforma.input("Digite el tipo de actividad a la que pertenece esta actividad");
+											String fechaInicial = Plataforma.input("Digite la fecha en la que incio la actividad con el formato DD/MM/AA");
+											String fechaFinal = Plataforma.input("Digite la fecha en la que finalizo la actividad con el formato DD/MM/AA");
+											String horaInicial = Plataforma.input("Digite la hora en la que incio la actividad con el formato HH/MM");
+											String horaFinal = Plataforma.input("Digite la hora en la que finalizo la actividad con el formato HH/MM");
+											String tiempoRealizacion = "0";
+											String isTiempoReal = "false";
+											String autor = Plataforma.input("Digite el nombre de la persona que realizo la actvidad");
+
+										// Se añade la actividad al proyeto
+
+											Proyecto.anadirActividad(titulo, descripcion, tipo, fechaInicial, fechaFinal, horaInicial, horaFinal, tiempoRealizacion, isTiempoReal, autor);
+
+										System.out.println(Plataforma.getProyectoActual().getActividades().get(1).getTitulo());
+									
+									}
+
+									if (opcion_seleccionada == 3)
+									{
+										
+										// Se le pide la fecha al usuario
+
+											String fechaFinal = Plataforma.input("Digite la fecha en la que finalizo la actividad con el formato DD/MM/AA");
+
+										// Se asigna la fecha final	
+										
+											Proyecto.setFechaFinal(fechaFinal);
+									
+									}
+
+									if (opcion_seleccionada == 4)
+									{
+
+										// Se le pide el tipo de actividad al usuario
+
+											String tipoActividad = Plataforma.input("Digite el nombre para el nuevo tipo de actividad");
+										
+										// Se añade el nuevo tipo de actividad al ArrayList donde se encuentran
+										// los tipos de actividad del proyecto										
+
+											Proyecto.anadirTipoActividad(tipoActividad);	
+									
+									}
+
+									if (opcion_seleccionada == 0)
+									{
+										System.out.println("\n"+"Saliendo del proyecto..."+"\n");
+										seleccion = false;	
+									}
+								
+							}
+						
+						// Si el ususario no ha cargado ningún proyecto, se le muestra las opciones
+						// que tiene en este caso	
+
+							else
+							{
+								
+								// Se muestra el menú de las opciones
+
+									mostrarMenuApp();
+								
+								// Se guarda la opción seleccionada	
+
+									opcion_seleccionada = Integer.parseInt(Plataforma.input("\nPor favor seleccione una opcion"));
+
+								// Se ejecuta la funcionalidad que el ususario haya seleccionado
+
+								if (opcion_seleccionada == 1)
+								{
+
+									// Se declaran las variables necesarias
+
+										String fechaFinal = "None";
+										int iD = 0;
+
+									// Se le pide al usuario la informacion para crear el proyecto
+
+										String nombre = Plataforma.input("Digite el nombre del proyecto");
+										String descripcion = Plataforma.input("Digite una descripcion para el proyecto");
+										String fechaInicial = Plataforma.input("Digite la fecha en la que inicia el proyecto con el formato DD/MM/AA");
+									
+										// Se le da la opción al ususario de agregar o no la fecha final
+										// para el proyecto. En caso de que no la desee agregar, se crea
+										// el proyecto con fechaFinal = "None"
+
+											System.out.println("\n¿Desea agregar ahora o después la fecha de finalizacion del proyecto?\n1. Ahora\n2. Después\n");
+											String opcion = Plataforma.input("Digite el digito de la opción que desea");
+											if (opcion.equals("1"))
+												{
+													fechaFinal = Plataforma.input("Digite la fecha en la que finaliza el proyecto con el formato DD/MM/AA");
+													Proyecto.setFechaFinal(fechaFinal);
+												}
+											else
+												{
+													Proyecto.setFechaFinal("00/00/00");
+												}
+									
+									Proyecto.crearProyecto(nombre, descripcion, fechaInicial, fechaFinal, iD);
+									//System.out.println(Plataforma.getProyectos().get(1).getNombre());
+								
+								}
+
+								if (opcion_seleccionada == 2)
+								{
+
+									// Se le pide al usuario el nombre del proyecto que desea cargar
+
+										String nombreProyecto = Plataforma.input("Digite el nombre del proyecto que desea cargar");
+									
+									// Se carga toda la informacion del proyecto
+
+										Plataforma.cargarProyecto(nombreProyecto);
+										//System.out.println(Plataforma.getProyectoActual().getParticipantes().get(0).getNombre());
+
+										if (Plataforma.getProyectoActual() == null)
+											{
+												System.out.println("El proyecto no se ha encontrado");
+											}
+										else
+											{
+												seleccion = true;
+											}
+
+								}
+
+								if (opcion_seleccionada == 0)
+									{
+
+										continuar = false;
+									
+									}
+
+							}
+								
+					}
+
+			}
+
+		// Muestra al ususario el menú de opciones que tiene cuando ya
+		// ha cargado un proyecto
+
+			public void mostrarMenuProyecto()
+			{
+
+				System.out.println("\nOpciones de la aplicacion:\n");
+				System.out.println("1. Agregar un nuevo participante al proyecto");
+				System.out.println("2. Registrar una nueva actividad");
+				System.out.println("3. Agregar una fecha final al proyecto");
+				System.out.println("4. Agregar un tipo de actividad al proyecto");
+				System.out.println("0. Guardar y salir del proyecto");
+
+			}
+
+		// Muestra al ususario el menú de opciones que tiene cuando no
+		// ha cargado un proyecto
+		
+			public void mostrarMenuApp() 
+			{
+
+				System.out.println("\n"+" --- Menú principal --- "+"\n");
+				System.out.println("1. Crear un nuevo proyecto");
+				System.out.println("2. Cargar un proyecto");
+				System.out.println("0. Salir");
+				
+			}
+
+		// Función main
+
+			public static void main(String[] args) throws IOException
+			{
+
+				Aplicacion aplicacion = new Aplicacion();
+
+				Plataforma.cargarIdActividad(Plataforma.getRutaIdActividades());
+				Plataforma.cargarIdProyecto(Plataforma.getRutaIdProyectos());
+
+				Plataforma.cargarProyectos(Plataforma.getRutaProyectos());
+
+				aplicacion.ejecutarAplicacion();
+
+			}
+
+	}
